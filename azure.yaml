@@ -4,5 +4,5 @@ name: ToDosProject
 services:  
   app:
     language: dotnet
-    project: ./src/ToDosProject.AppHost/ToDosProject.AppHost.csproj
+    project: ./orchestration/ToDosProject.AppHost/ToDosProject.AppHost.csproj
     host: containerapp
