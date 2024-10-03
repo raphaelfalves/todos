@@ -17,9 +17,8 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
   </ItemGroup>
 
-
   <ItemGroup>
-    <ProjectReference Include="..\..\orchestration\ToDosProject.AppHost\ToDosProject.AppHost.csproj" />
+    <ProjectReference Include="..\ToDosProject.AppHost\ToDosProject.AppHost.csproj" />
   </ItemGroup>
 
   <ItemGroup>
