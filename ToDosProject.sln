@@ -2,19 +2,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDosProject.AppHost", "ToDosProject.AppHost\ToDosProject.AppHost.csproj", "{B4C71CCE-B765-43E2-A2B8-51631AD94FD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDosProject.AppHost", "orchestration\ToDosProject.AppHost\ToDosProject.AppHost.csproj", "{B4C71CCE-B765-43E2-A2B8-51631AD94FD0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDosProject.ServiceDefaults", "ToDosProject.ServiceDefaults\ToDosProject.ServiceDefaults.csproj", "{CB565B07-ABB2-4A53-8E89-BC5B96B4E4C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDosProject.ServiceDefaults", "orchestration\ToDosProject.ServiceDefaults\ToDosProject.ServiceDefaults.csproj", "{CB565B07-ABB2-4A53-8E89-BC5B96B4E4C8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDosProject.ApiService", "ToDosProject.ApiService\ToDosProject.ApiService.csproj", "{86C7AE81-06C8-4C41-BCAD-B6025C76174F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDosProject.ApiService", "src\ToDosProject.ApiService\ToDosProject.ApiService.csproj", "{86C7AE81-06C8-4C41-BCAD-B6025C76174F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDosProject.Web", "ToDosProject.Web\ToDosProject.Web.csproj", "{DEF46196-EEBF-4414-A87C-130E2CCC394A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDosProject.Web", "src\ToDosProject.Web\ToDosProject.Web.csproj", "{DEF46196-EEBF-4414-A87C-130E2CCC394A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDosProject.Tests", "ToDosProject.Tests\ToDosProject.Tests.csproj", "{563BE3EB-8B24-4B55-9DCD-21DF452B0FE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDosProject.Tests", "test\ToDosProject.Tests\ToDosProject.Tests.csproj", "{563BE3EB-8B24-4B55-9DCD-21DF452B0FE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDosProject.Domain", "..\ToDosProject.Domain\ToDosProject.Domain.csproj", "{5800B66E-49BE-4D80-B116-333D38AFB823}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDosProject.Domain", "src\ToDosProject.Domain\ToDosProject.Domain.csproj", "{5800B66E-49BE-4D80-B116-333D38AFB823}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDosProject.Infraestructure", "..\ToDosProject.Infraestructure\ToDosProject.Infraestructure.csproj", "{A7C48977-2879-4B1E-8995-B3746A64656D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDosProject.Infraestructure", "src\ToDosProject.Infraestructure\ToDosProject.Infraestructure.csproj", "{A7C48977-2879-4B1E-8995-B3746A64656D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

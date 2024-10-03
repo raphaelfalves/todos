@@ -10,13 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ToDosProject.ApiService\ToDosProject.ApiService.csproj" />
-    <ProjectReference Include="..\ToDosProject.Web\ToDosProject.Web.csproj" />
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.1.0" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="8.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.1.0" />
-    <PackageReference Include="Aspire.Hosting.Redis" Version="8.1.0" />
+    <ProjectReference Include="..\..\src\ToDosProject.ApiService\ToDosProject.ApiService.csproj" />
+    <ProjectReference Include="..\..\src\ToDosProject.Web\ToDosProject.Web.csproj" />
   </ItemGroup>
 
 </Project>
