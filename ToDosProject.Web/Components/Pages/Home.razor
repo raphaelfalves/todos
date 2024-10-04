@@ -1,7 +1,40 @@
 ﻿@page "/"
 
+@layout HeadlessLayout
+
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+@*     <header class="mb-auto">
+        <div>
+            <h3 class="float-md-start mb-0">Cover</h3>
+            <nav class="nav nav-masthead justify-content-center float-md-end">
+                <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="#">Home</a>
+                <a class="nav-link fw-bold py-1 px-0" href="#">Features</a>
+                <a class="nav-link fw-bold py-1 px-0" href="#">Contact</a>
+            </nav>
+        </div>
+    </header> *@
 
-Welcome to your new app.
+    <main class="px-3 mt-auto">
+        <h1>ToDos</h1>
+        <p class="lead">Planeje aqui suas tarefas do dia a dia.</p>
+        <p class="lead">
+            <div class="row g-2 ">
+                <div class="col-12 col-sm-4">
+                    <a href="#" class="btn btn-md btn-light fw-bold border-white bg-white"><i class="bi bi-windows"></i> <span class="ms-2">Windows</span></a>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <a href="#" class="btn btn-lg btn-light fw-bold border-white bg-white"><i class="bi bi-box-arrow-in-right"></i> <span class="ms-2">Entrar</span></a>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <a href="#" class="btn btn-md btn-light fw-bold border-white bg-white"><i class="bi bi-android"></i> <span class="ms-2">Android</span></a>
+                </div>
+            </div>
+        </p>
+    </main>
+
+    <footer class="mt-auto text-white-50">
+        <p>Desenvolvido por Raphael F. Alves <a href="https://www.linkedin.com/in/raphaelfalves/" target="_blank" class="text-white">LinkedIn</a>, <a href="https://github.com/raphaelfalves" target="_blank" class="text-white">GitHub</a>.</p>
+    </footer>
+</div>
