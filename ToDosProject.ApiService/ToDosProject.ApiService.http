@@ -1,0 +1,42 @@
+﻿@ToDosProject.ApiService_HostAddress = https://localhost:7340
+
+GET {{ToDosProject.ApiService_HostAddress}}/ToDoitems
+
+###
+
+POST {{ToDosProject.ApiService_HostAddress}}/ToDoitems
+Content-Type: application/json
+
+{
+  "title": "Fazer café"
+}
+###
+
+GET {{ToDosProject.ApiService_HostAddress}}/ToDoitems/1
+
+###
+
+PUT {{ToDosProject.ApiService_HostAddress}}/ToDoitems/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "Esquentar café"
+}
+###
+
+DELETE {{ToDosProject.ApiService_HostAddress}}/ToDoitems/1
+
+###
+
+GET {{ToDosProject.ApiService_HostAddress}}/ToDoitems/complete
+
+###
+
+POST {{ToDosProject.ApiService_HostAddress}}/Todoitems/Conclude/1
+
+###
+
+POST {{ToDosProject.ApiService_HostAddress}}/Todoitems/Unconclude/1
+
+###

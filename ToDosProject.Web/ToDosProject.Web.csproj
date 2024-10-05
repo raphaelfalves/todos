@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ToDosProject.Domain\ToDosProject.Domain.csproj" />
     <ProjectReference Include="..\ToDosProject.ServiceDefaults\ToDosProject.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" Version="8.1.0" />
+    <PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" Version="8.2.1" />
   </ItemGroup>
 
 </Project>

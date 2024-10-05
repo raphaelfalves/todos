@@ -1,3 +1,4 @@
+using ToDosProject.Domain;
 using ToDosProject.Web;
 using ToDosProject.Web.Components;
 
@@ -5,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire components.
 builder.AddServiceDefaults();
-builder.AddRedisOutputCache("cache");
+builder.AddRedisOutputCache(AppConfiguration.CACHE);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
