@@ -8,7 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add service defaults & Aspire components.
 builder.AddServiceDefaults();
 
-builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("TodoList"));
+builder.AddSqlServerDbContext<AppDbContext>(AppConfiguration.DATABASE, configureDbContextOptions: options =>
+{
+    options.UseSqlServer(sqlServerOptions =>
+    {
+        sqlServerOptions.MigrationsAssembly("ToDosProject.Infraestructure");
+    });
+});
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Add services to the container.

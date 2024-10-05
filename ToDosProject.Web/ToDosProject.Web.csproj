@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ToDosProject.Domain\ToDosProject.Domain.csproj" />
     <ProjectReference Include="..\ToDosProject.ServiceDefaults\ToDosProject.ServiceDefaults.csproj" />
   </ItemGroup>
 

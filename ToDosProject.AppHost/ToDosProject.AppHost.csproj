@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -11,12 +11,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ToDosProject.ApiService\ToDosProject.ApiService.csproj" />
+    <ProjectReference Include="..\ToDosProject.MigrationService\ToDosProject.MigrationService.csproj" />
     <ProjectReference Include="..\ToDosProject.Web\ToDosProject.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.1" />
+    <PackageReference Include="Aspire.Hosting.Azure.Sql" Version="8.2.1" />
     <PackageReference Include="Aspire.Hosting.Redis" Version="8.2.1" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="8.2.1" />
+    <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="8.2.1" />
   </ItemGroup>
 
 </Project>

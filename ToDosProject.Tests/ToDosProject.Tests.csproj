@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ToDosProject.ApiService\ToDosProject.ApiService.csproj" />
     <ProjectReference Include="..\ToDosProject.AppHost\ToDosProject.AppHost.csproj" />
   </ItemGroup>
 

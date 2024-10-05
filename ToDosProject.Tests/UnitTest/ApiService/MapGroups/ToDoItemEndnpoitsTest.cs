@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using ToDosProject.ApiService.MapGroups;
 using ToDosProject.Domain;
-using ToDosProject.UnitTests.Helpers;
+using ToDosProject.Tests.UnitTest.Helpers;
 
-namespace ToDosProject.UnitTests.ApiService.MapGroups
+namespace ToDosProject.Tests.UnitTest.ApiService.MapGroups
 {
     public class ToDoItemEndnpoitsTest
     {

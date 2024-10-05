@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using ToDosProject.Domain;
 using ToDosProject.Infraestructure;
 
-namespace ToDosProject.UnitTests.Helpers
+namespace ToDosProject.Tests.UnitTest.Helpers
 {
     public class MockDB : IDbContextFactory<AppDbContext>
     {
