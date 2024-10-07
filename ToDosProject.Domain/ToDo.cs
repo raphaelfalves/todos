@@ -11,7 +11,7 @@
 
         public int Id { get; set; }
         public string Title { get; set; } = null!;
-        public bool IsConcluded { get;private set; } = false;
+        public bool IsConcluded { get; set; } = false;
 
         public void Conclude()
         {

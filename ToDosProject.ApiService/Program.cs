@@ -26,7 +26,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseExceptionHandler();
 
-var todoItems = app.MapGroup("/ToDoitems");
+var todoItems = app.MapGroup("/todoitems");
 
 todoItems.MapGet("/", ToDoItemEndnpoits.GetAll);
 

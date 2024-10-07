@@ -1,0 +1,97 @@
+﻿@page "/todos"
+
+@layout HeadlessLayout
+
+@inject ApiServiceClient apiService
+
+<PageTitle>Tarefas</PageTitle>
+
+<h1>Tarefas</h1>
+
+@if (toDos == null)
+{
+    <p id="p-loading"><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titulo</th>
+                <th>Concluido</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var toDo in toDos)
+            {
+                <tr id="@($"tr-{Array.IndexOf(toDos,toDo)}")">
+                    <td>@toDo.Id</td>
+                    <td><InputText Value="@toDo.Title" ValueExpression="() => toDo.Title" ValueChanged="async (e) => await Update(e,toDo)" id="@($"input-title-{Array.IndexOf(toDos,toDo)}")" /></td>
+                    <td><InputCheckbox Value="toDo.IsConcluded" ValueExpression="() => toDo.IsConcluded" @onclick="() => IsConcludedChange(toDo)" Color="Color.Primary" id="@($"input-isconcluded-{Array.IndexOf(toDos,toDo)}")" /></td>
+                    <td><button @onclick="() => DeleteAsync(toDo.Id)" id="@($"input-delete-{Array.IndexOf(toDos,toDo)}")">Excluir</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <InputText id="input-createtodo" @bind-Value="newToDoTitle" @onkeyup="SubmitAsync" />
+}
+
+@code {
+    public ToDo[]? toDos;
+
+    private string newToDoTitle = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        toDos = await apiService.GetToDosAsync();
+    }
+
+    async Task SubmitAsync(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter")
+        {
+            ToDo? newToDo = new(0, newToDoTitle);
+
+            newToDo = await apiService.CreateToDosAsync(newToDo);
+
+            if (newToDo is not null)
+            {
+                toDos = [.. toDos, newToDo];
+                newToDoTitle = string.Empty;
+            }
+        }
+    }
+
+    async Task DeleteAsync(int id)
+    {
+        if (await apiService.DeleteToDoAsync(id))
+            toDos = toDos?.Where(x => x.Id != id).ToArray();
+    }
+
+    async Task Update(string newTitle, ToDo toDo)
+    {
+        ToDo toDoUpdate = toDo;
+        toDoUpdate.Title = newTitle;
+
+        if (await apiService.UpdateToDoAsync(toDoUpdate))
+        {
+            toDo = toDoUpdate;
+        }
+    }
+
+    async Task IsConcludedChange(ToDo toDo)
+    {
+        if (toDo.IsConcluded)
+        {
+            if (await apiService.UnconcludeToDoAsync(toDo.Id))
+                toDo.Unconclude();
+
+                return;
+        }
+
+        if (await apiService.ConcludeToDoAsync(toDo.Id))
+            toDo.Conclude();
+    }
+}

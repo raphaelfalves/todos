@@ -1,3 +1,5 @@
+using Google.Protobuf.WellKnownTypes;
+using MudBlazor.Services;
 using ToDosProject.Domain;
 using ToDosProject.Web;
 using ToDosProject.Web.Components;
@@ -9,15 +11,19 @@ builder.AddServiceDefaults();
 builder.AddRedisOutputCache(AppConfiguration.CACHE);
 
 // Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+builder.Services.AddRazorComponents().AddInteractiveServerComponents(options =>
+{
+    options.DetailedErrors = builder.Environment.IsDevelopment();
+});
 
-builder.Services.AddHttpClient<WeatherApiClient>(client =>
+builder.Services.AddHttpClient<ApiServiceClient>(client =>
     {
         // This URL uses "https+http://" to indicate HTTPS is preferred over HTTP.
         // Learn more about service discovery scheme resolution at https://aka.ms/dotnet/sdschemes.
-        client.BaseAddress = new("https+http://apiservice");
+        client.BaseAddress = new($"https+http://{AppConfiguration.API}");
     });
+
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 

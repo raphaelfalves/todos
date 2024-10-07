@@ -16,7 +16,7 @@ namespace ToDosProject.ApiService.MapGroups
                 is ToDo ToDo
                     ? TypedResults.Ok(ToDo)
                     : TypedResults.NotFound();
-
+            
         public static async Task<IResult> Create(ToDo ToDo, AppDbContext db)
         {
             db.ToDo.Add(ToDo);

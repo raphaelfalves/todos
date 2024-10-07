@@ -1,3 +1,36 @@
-﻿@inherits LayoutComponentBase
+﻿@using System.Text.Json
+@inherits LayoutComponentBase
+@inject IHostEnvironment HostEnvironment
 
-@Body
+@* Required *@
+<MudThemeProvider />
+<MudPopoverProvider />
+
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+
+<ErrorBoundary>
+    <ChildContent>
+        @Body
+    </ChildContent>
+    <ErrorContent>
+        <div id="blazor-error-ui dismis" data-nosnippet>
+            @if (HostEnvironment.IsProduction())
+            {
+                <span>An error has occurred.</span>
+            }
+            else
+            {
+                <span>An unhandled exception occurred.</span>
+                <p>@context.Message</p>
+                <p>@context.InnerException</p>
+                <p>@context.StackTrace</p>
+            }
+            <a href="" class="reload">Reload</a>
+            <a class="dismiss">🗙</a>
+        </div>
+    </ErrorContent>
+</ErrorBoundary>
