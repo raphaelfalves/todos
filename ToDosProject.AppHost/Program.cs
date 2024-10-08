@@ -4,7 +4,7 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 var cache = builder.AddRedis(AppConfiguration.CACHE);
 
-var sqldb = builder.AddConnectionString(AppConfiguration.SQL);
+var sqldb = builder.AddConnectionString(AppConfiguration.SQL, "ConnectionStrings__SqlServer");
 
 var apiService = builder.AddProject<Projects.ToDosProject_ApiService>(AppConfiguration.API)
     .WithReference(sqldb);
