@@ -2,8 +2,6 @@ using ToDosProject.AppHost;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var cache = builder.AddRedis(AppConfiguration.CACHE);
-
 var sqldb = builder.AddConnectionString(AppConfiguration.SQL, "ConnectionStrings__SqlServer");
 
 var apiService = builder.AddProject<Projects.ToDosProject_ApiService>(AppConfiguration.API)
@@ -11,7 +9,6 @@ var apiService = builder.AddProject<Projects.ToDosProject_ApiService>(AppConfigu
 
 builder.AddProject<Projects.ToDosProject_Web>(AppConfiguration.WEB)
     .WithExternalHttpEndpoints()
-    .WithReference(cache)
     .WithReference(apiService);
 
 builder.Build().Run();
