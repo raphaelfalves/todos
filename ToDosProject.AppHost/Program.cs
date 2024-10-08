@@ -14,7 +14,4 @@ builder.AddProject<Projects.ToDosProject_Web>(AppConfiguration.WEB)
     .WithReference(cache)
     .WithReference(apiService);
 
-builder.AddProject<Projects.ToDosProject_MigrationService>(AppConfiguration.MIGRATION)
-    .WithReference(sqldb);
-
 builder.Build().Run();
