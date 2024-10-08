@@ -8,7 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire components.
 builder.AddServiceDefaults();
-builder.AddRedisOutputCache(AppConfiguration.CACHE);
 
 // Add services to the container.
 builder.Services.AddRazorComponents().AddInteractiveServerComponents(options =>
@@ -38,8 +37,6 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
-
-app.UseOutputCache();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
