@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add service defaults & Aspire components.
 builder.AddServiceDefaults();
 
-builder.AddSqlServerDbContext<AppDbContext>(AppConfiguration.DATABASE, configureDbContextOptions: options =>
+builder.AddSqlServerDbContext<AppDbContext>(AppConfiguration.SQL, configureDbContextOptions: options =>
 {
     options.UseSqlServer(sqlServerOptions =>
     {
