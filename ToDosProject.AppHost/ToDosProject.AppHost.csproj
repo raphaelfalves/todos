@@ -11,7 +11,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ToDosProject.ApiService\ToDosProject.ApiService.csproj" />
-    <ProjectReference Include="..\ToDosProject.MigrationService\ToDosProject.MigrationService.csproj" />
     <ProjectReference Include="..\ToDosProject.Web\ToDosProject.Web.csproj" />
   </ItemGroup>
 

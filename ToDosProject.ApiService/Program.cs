@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ToDosProject.ApiService.Extensions;
 using ToDosProject.ApiService.MapGroups;
 using ToDosProject.Domain;
 using ToDosProject.Infraestructure;
@@ -43,5 +44,7 @@ todoItems.MapPost("/Conclude/{id}", ToDoItemEndnpoits.Conclude);
 todoItems.MapPost("/Unconclude/{id}", ToDoItemEndnpoits.Unconclude);
 
 app.MapDefaultEndpoints();
+
+app.Services.InitializeDb();
 
 app.Run();
