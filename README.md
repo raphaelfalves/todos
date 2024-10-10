@@ -9,8 +9,6 @@ Este repositório contém a aplicação ["Tarefas a Fazer"](https://webfrontend.
 - **Blazor Server**: Aplicação web interativa para o gerenciamento de tarefas.
 - **SQL Server**: Banco de dados relacional utilizado para armazenamento das tarefas.
 - **Entity Framework Core**: Mapeamento objeto-relacional (ORM) para manipulação do banco de dados.
-- **Migrations**: Mecanismo de controle e versionamento do esquema do banco de dados.
-- **Redis**: Utilizado para caching de dados, melhorando a performance da aplicação.
 - **xUnit**: Framework de testes unitários para garantir a qualidade do código.
 - **bUnit**: Framework de testes de componentes Blazor.
 - **CI/CD no Azure**: Pipeline de integração e entrega contínua configurado para deploy no **Azure Container Instances**.
