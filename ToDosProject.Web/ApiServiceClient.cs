@@ -1,4 +1,4 @@
-using ToDosProject.Domain;
+using ToDosProject.Domain.Entities;
 
 namespace ToDosProject.Web;
 
@@ -10,7 +10,7 @@ public class ApiServiceClient(HttpClient httpClient)
 
         var response = await httpClient.GetAsync("/todoitems", cancellationToken);
 
-        if(response.IsSuccessStatusCode)
+        if (response.IsSuccessStatusCode)
             toDos = await response.Content.ReadFromJsonAsync<IEnumerable<ToDo>>(cancellationToken);
 
         return toDos!.ToArray();
@@ -20,8 +20,8 @@ public class ApiServiceClient(HttpClient httpClient)
     {
         var response = await httpClient.PostAsJsonAsync("/todoitems", toDo, cancellationToken);
 
-        if(response.IsSuccessStatusCode)
-            return  await response.Content.ReadFromJsonAsync<ToDo>(cancellationToken);
+        if (response.IsSuccessStatusCode)
+            return await response.Content.ReadFromJsonAsync<ToDo>(cancellationToken);
 
         return null;
     }
@@ -35,7 +35,7 @@ public class ApiServiceClient(HttpClient httpClient)
 
     public async Task<bool> UpdateToDoAsync(ToDo toDo, CancellationToken cancellationToken = default)
     {
-        var response = await httpClient.PutAsJsonAsync($"/todoitems/{toDo.Id}",toDo, cancellationToken);
+        var response = await httpClient.PutAsJsonAsync($"/todoitems/{toDo.Id}", toDo, cancellationToken);
 
         return response.IsSuccessStatusCode;
     }
@@ -49,7 +49,7 @@ public class ApiServiceClient(HttpClient httpClient)
 
     public async Task<bool> ConcludeToDoAsync(int id, CancellationToken cancellationToken = default)
     {
-        var response = await httpClient.PostAsync($"/todoitems/Conclude/{id}",new StringContent(""), cancellationToken);
+        var response = await httpClient.PostAsync($"/todoitems/Conclude/{id}", new StringContent(""), cancellationToken);
 
         return response.IsSuccessStatusCode;
     }

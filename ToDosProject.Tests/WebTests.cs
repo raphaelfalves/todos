@@ -1,13 +1,12 @@
 using Bunit;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.DataProtection;
-using ToDosProject.Domain;
+using ToDosProject.Domain.Constants;
 using ToDosProject.Web;
 using ToDosProject.Web.Components.Pages;
 
 namespace ToDosProject.Tests;
 
-public class WebTests : TestContext, IDisposable
+public class WebTests : TestContext
 {
     private readonly DistributedApplication app = null!;
     private readonly HttpClient httpClientWeb = null!;
@@ -24,11 +23,8 @@ public class WebTests : TestContext, IDisposable
         var resourceNotificationService = app.Services.GetRequiredService<ResourceNotificationService>();
         app.StartAsync().Wait();
 
-        resourceNotificationService.WaitForResourceAsync(AppConfiguration.DATABASE, KnownResourceStates.Running).Wait();
-        resourceNotificationService.WaitForResourceAsync(AppConfiguration.CACHE, KnownResourceStates.Running).Wait();
         resourceNotificationService.WaitForResourceAsync(AppConfiguration.API, KnownResourceStates.Running).Wait();
         resourceNotificationService.WaitForResourceAsync(AppConfiguration.WEB, KnownResourceStates.Running).Wait();
-        resourceNotificationService.WaitForResourceAsync(AppConfiguration.MIGRATION, KnownResourceStates.Finished).Wait();
 
         httpClientWeb = app.CreateHttpClient(AppConfiguration.WEB);
         httpClientApi = app.CreateHttpClient(AppConfiguration.API);
@@ -60,56 +56,53 @@ public class WebTests : TestContext, IDisposable
 
         cut.WaitForElement("#input-createtodo", TimeSpan.FromMinutes(1));
 
+        int index = cut.Instance.toDos!.Count();
+
         var input = cut.Find("#input-createtodo");
 
-        input.Change("Nova tarefa");    
+        input.Change("Nova tarefa");
 
-        await cut.InvokeAsync(() => input.KeyUp(new KeyboardEventArgs { Key = "Enter"}));
-        
-        cut.WaitForElement("#tr-0", TimeSpan.FromSeconds(30));
-        
-        var inputTitle = cut.Find("#input-title-0");
+        await cut.InvokeAsync(() => input.KeyUp(new KeyboardEventArgs { Key = "Enter" }));
 
-        inputTitle.Change("Nova tarefa 1");    
+        cut.WaitForElement($"#tr-{index}", TimeSpan.FromSeconds(30));
 
-        var checkbox = cut.Find("#input-isconcluded-0");
+        var inputTitle = cut.Find($"#input-title-{index}");
+
+        inputTitle.Change("Nova tarefa 1");
+
+        var checkbox = cut.Find($"#input-isconcluded-{index}");
 
         checkbox.Click();
 
-        cut.WaitForState(() => cut.Instance.toDos![0].IsConcluded == true,TimeSpan.FromSeconds(10));
+        cut.WaitForState(() => cut.Instance.toDos![index].IsConcluded == true, TimeSpan.FromSeconds(10));
 
         cut = RenderComponent<ToDoPage>();
 
         cut.WaitForState(() => cut?.Instance?.toDos != null, TimeSpan.FromSeconds(30));
 
-        Assert.Equal("Nova tarefa 1", cut.Instance.toDos![0].Title);
-        Assert.True(cut.Instance.toDos![0].IsConcluded);
+        Assert.Equal("Nova tarefa 1", cut.Instance.toDos![index].Title);
+        Assert.True(cut.Instance.toDos![index].IsConcluded);
 
         cut = RenderComponent<ToDoPage>();
 
         cut.WaitForState(() => cut?.Instance?.toDos != null, TimeSpan.FromSeconds(30));
 
-        checkbox = cut.Find("#input-isconcluded-0");
+        checkbox = cut.Find($"#input-isconcluded-{index}");
 
         checkbox.Click();
 
-        cut.WaitForState(() => cut.Instance.toDos![0].IsConcluded == false, TimeSpan.FromSeconds(10));
+        cut.WaitForState(() => cut.Instance.toDos![index].IsConcluded == false, TimeSpan.FromSeconds(10));
 
         cut = RenderComponent<ToDoPage>();
 
         cut.WaitForState(() => cut?.Instance?.toDos != null, TimeSpan.FromSeconds(30));
 
-        Assert.False(cut.Instance.toDos![0].IsConcluded);
+        Assert.False(cut.Instance.toDos![index].IsConcluded);
 
-        checkbox = cut.Find("#input-delete-0");
+        checkbox = cut.Find($"#input-delete-{index}");
 
         checkbox.Click();
 
-        cut.WaitForState(() => cut?.Instance?.toDos.Count() == 0, TimeSpan.FromSeconds(30));
-    }
-
-    protected override void Dispose(bool disposing)
-    {
-        app.StopAsync().Wait();
+        cut.WaitForState(() => cut?.Instance?.toDos.Count() == index, TimeSpan.FromSeconds(30));
     }
 }

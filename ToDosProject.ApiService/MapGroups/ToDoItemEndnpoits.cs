@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ToDosProject.Domain;
-using ToDosProject.Infraestructure;
+using ToDosProject.Domain.Entities;
+using ToDosProject.Infraestructure.Context;
 
 namespace ToDosProject.ApiService.MapGroups
 {
@@ -16,7 +16,7 @@ namespace ToDosProject.ApiService.MapGroups
                 is ToDo ToDo
                     ? TypedResults.Ok(ToDo)
                     : TypedResults.NotFound();
-            
+
         public static async Task<IResult> Create(ToDo ToDo, AppDbContext db)
         {
             db.ToDo.Add(ToDo);
@@ -40,7 +40,7 @@ namespace ToDosProject.ApiService.MapGroups
 
         public static async Task<IResult> Delete(int id, AppDbContext db)
         {
-            if (await db.ToDo.FindAsync(id) is not ToDo ToDo) 
+            if (await db.ToDo.FindAsync(id) is not ToDo ToDo)
                 return TypedResults.NotFound();
 
             db.ToDo.Remove(ToDo);

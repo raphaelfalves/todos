@@ -6,37 +6,124 @@
 
 <PageTitle>Tarefas</PageTitle>
 
-<h1>Tarefas</h1>
+<style>
+    .todo {
+        padding: 0.5rem;
+        background: #2a2a2a;
+        border-radius: 4px;
+    }
 
-@if (toDos == null)
-{
-    <p id="p-loading"><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titulo</th>
-                <th>Concluido</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var toDo in toDos)
-            {
-                <tr id="@($"tr-{Array.IndexOf(toDos,toDo)}")">
-                    <td>@toDo.Id</td>
-                    <td><InputText Value="@toDo.Title" ValueExpression="() => toDo.Title" ValueChanged="async (e) => await Update(e,toDo)" id="@($"input-title-{Array.IndexOf(toDos,toDo)}")" /></td>
-                    <td><InputCheckbox Value="toDo.IsConcluded" ValueExpression="() => toDo.IsConcluded" @onclick="() => IsConcludedChange(toDo)" Color="Color.Primary" id="@($"input-isconcluded-{Array.IndexOf(toDos,toDo)}")" /></td>
-                    <td><button @onclick="() => DeleteAsync(toDo.Id)" id="@($"input-delete-{Array.IndexOf(toDos,toDo)}")">Excluir</button></td>
-                </tr>
+    .container {
+        margin-bottom: 20px;
+    }
+
+    .todo-container {
+        padding-top: 40px;
+        padding-bottom: 85px;   
+        height: 100%;
+    }
+
+    .todo-title {
+        text-align: left;
+        background: #2a2a2a;
+    }
+
+        .todo-title input {
+            text-align: left;
+            background: #2a2a2a;
+            color: #d1d1d1;
+        }
+
+    .todo-delete {
+        width: 30px;
+    }
+
+    .createtodo {
+        position: fixed;
+        bottom: 0px;
+        height: 90px;
+        background: linear-gradient(to top, black, #121212, transparent);
+        width: 100%;
+    }
+
+
+    input#input-createtodo {
+        position: fixed;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        background: #2a2a2a;
+        padding: 10px;
+        color: #d1d1d1;
+    }
+
+    @@media (max-width: 576px) {
+        .container {
+            width: 90%;
+        }
+    }
+
+    @@media (min-width: 576px) {
+        input#input-createtodo {
+            max-width: 540px;
+        }
+
+        @@media (min-width: 768px) {
+            input#input-createtodo {
+                max-width: 720px;
             }
-        </tbody>
-    </table>
-    <InputText id="input-createtodo" @bind-Value="newToDoTitle" @onkeyup="SubmitAsync" />
-}
+        }
+
+        @@media (min-width: 992px) {
+            input#input-createtodo {
+                max-width: 960px;
+            }
+        }
+
+        @@media (min-width: 1200px) {
+            input#input-createtodo {
+                max-width: 1140px;
+            }
+
+            @@media (min-width: 1400px) {
+                input#input-createtodo {
+                    max-width: 1320px;
+                }
+            }
+        }
+    }
+</style>
+
+<div class="todo-container">
+    @if (toDos == null)
+    {
+        <p id="p-loading"><em>Loading...</em></p>
+    }
+    else
+    {
+        @foreach (var toDo in toDos)
+        {
+            <div class="container" id="@($"tr-{Array.IndexOf(toDos,toDo)}")">
+                <div class="row todo justify-space-between">
+                    <div class="col-1">
+                        <InputCheckbox Value="toDo.IsConcluded" ValueExpression="() => toDo.IsConcluded" @onclick="() => IsConcludedChange(toDo)" Color="Color.Primary" id="@($"input-isconcluded-{Array.IndexOf(toDos,toDo)}")" />
+                    </div>
+                    <div class="col-9 todo-title">
+                        <InputText Value="@toDo.Title" ValueExpression="() => toDo.Title" ValueChanged="async (e) => await Update(e,toDo)" id="@($"input-title-{Array.IndexOf(toDos,toDo)}")" />
+                    </div>
+                    <div class="todo-delete">
+                        <button @onclick="() => DeleteAsync(toDo.Id)" id="@($"input-delete-{Array.IndexOf(toDos,toDo)}")"><i class="bi bi-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="createtodo">
+            <InputText id="input-createtodo" @bind-Value="newToDoTitle" @onkeyup="SubmitAsync" placeholder="Adicionar tarefa" />
+        </div>
+    }
+</div>
 
 @code {
     public ToDo[]? toDos;
@@ -88,7 +175,7 @@ else
             if (await apiService.UnconcludeToDoAsync(toDo.Id))
                 toDo.Unconclude();
 
-                return;
+            return;
         }
 
         if (await apiService.ConcludeToDoAsync(toDo.Id))
