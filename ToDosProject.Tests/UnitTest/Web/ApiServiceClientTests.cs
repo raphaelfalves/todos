@@ -1,15 +1,7 @@
-﻿using Xunit;
-using ToDosProject.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ToDosProject.Web.Components.Pages;
-using ToDosProject.Domain;
-using Moq;
-using RichardSzalay.MockHttp;
+﻿using RichardSzalay.MockHttp;
 using System.Text.Json;
+using ToDosProject.Domain.Entities;
+using ToDosProject.Web;
 
 namespace ToDosProject.Tests.UnitTest.Web
 {

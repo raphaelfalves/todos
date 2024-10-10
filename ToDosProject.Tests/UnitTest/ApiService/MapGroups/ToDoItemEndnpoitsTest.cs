@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ToDosProject.ApiService.MapGroups;
-using ToDosProject.Domain;
+using ToDosProject.Domain.Entities;
 using ToDosProject.Tests.UnitTest.Helpers;
 
 namespace ToDosProject.Tests.UnitTest.ApiService.MapGroups
