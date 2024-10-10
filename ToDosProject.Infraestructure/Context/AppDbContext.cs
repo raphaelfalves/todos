@@ -7,5 +7,6 @@ namespace ToDosProject.Infraestructure.Context
     public class AppDbContext(DbContextOptions<AppDbContext> opt) : IdentityDbContext<User>(opt)
     {
         public DbSet<ToDo> ToDo { get; set; }
+        public DbSet<User> User { get; set; }
     }
 }

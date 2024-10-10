@@ -1,13 +1,12 @@
 using Bunit;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.DataProtection;
-using ToDosProject.Domain;
+using ToDosProject.Domain.Constants;
 using ToDosProject.Web;
 using ToDosProject.Web.Components.Pages;
 
 namespace ToDosProject.Tests;
 
-public class WebTests : TestContext, IDisposable
+public class WebTests : TestContext
 {
     private readonly DistributedApplication app = null!;
     private readonly HttpClient httpClientWeb = null!;
@@ -61,21 +60,21 @@ public class WebTests : TestContext, IDisposable
 
         var input = cut.Find("#input-createtodo");
 
-        input.Change("Nova tarefa");    
+        input.Change("Nova tarefa");
 
-        await cut.InvokeAsync(() => input.KeyUp(new KeyboardEventArgs { Key = "Enter"}));
-        
+        await cut.InvokeAsync(() => input.KeyUp(new KeyboardEventArgs { Key = "Enter" }));
+
         cut.WaitForElement($"#tr-{index}", TimeSpan.FromSeconds(30));
-        
+
         var inputTitle = cut.Find($"#input-title-{index}");
 
-        inputTitle.Change("Nova tarefa 1");    
+        inputTitle.Change("Nova tarefa 1");
 
         var checkbox = cut.Find($"#input-isconcluded-{index}");
 
         checkbox.Click();
 
-        cut.WaitForState(() => cut.Instance.toDos![index].IsConcluded == true,TimeSpan.FromSeconds(10));
+        cut.WaitForState(() => cut.Instance.toDos![index].IsConcluded == true, TimeSpan.FromSeconds(10));
 
         cut = RenderComponent<ToDoPage>();
 
@@ -105,10 +104,5 @@ public class WebTests : TestContext, IDisposable
         checkbox.Click();
 
         cut.WaitForState(() => cut?.Instance?.toDos.Count() == index, TimeSpan.FromSeconds(30));
-    }
-
-    protected override void Dispose(bool disposing)
-    {
-        app.StopAsync().Wait();
     }
 }

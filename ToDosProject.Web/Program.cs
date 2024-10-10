@@ -1,6 +1,6 @@
-using Google.Protobuf.WellKnownTypes;
 using MudBlazor.Services;
-using ToDosProject.Domain;
+using ToDosProject.Domain.Constants;
+using ToDosProject.ServiceDefaults;
 using ToDosProject.Web;
 using ToDosProject.Web.Components;
 
