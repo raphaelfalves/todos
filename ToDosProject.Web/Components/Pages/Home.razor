@@ -1,6 +1,7 @@
 ﻿@page "/"
 
-@layout HeadlessLayout
+@layout AuthlessLayout
+@inject IDialogService DialogService
 
 <PageTitle>Home</PageTitle>
 
@@ -15,7 +16,9 @@
                     <a href="#" class="btn btn-md btn-light fw-bold border-white bg-white"><i class="bi bi-windows"></i> <span class="ms-2">Windows</span></a>
                 </div>
                 <div class="col-12 col-sm-4">
-                    <a href="/todos" class="btn btn-lg btn-light fw-bold border-white bg-white"><i class="bi bi-box-arrow-in-right"></i> <span class="ms-2">Entrar</span></a>
+                    <MudButton @onclick="OpenDialogAsync" Variant="Variant.Filled" Class="btn btn-lg btn-light fw-bold border-white bg-white">
+                        <i class="bi bi-box-arrow-in-right"></i> Entrar
+                    </MudButton>
                 </div>
                 <div class="col-12 col-sm-4">
                     <a href="#" class="btn btn-md btn-light fw-bold border-white bg-white"><i class="bi bi-android"></i> <span class="ms-2">Android</span></a>
@@ -28,3 +31,12 @@
         <p>Desenvolvido por Raphael F. Alves <a href="https://www.linkedin.com/in/raphaelfalves/" target="_blank" class="text-white">LinkedIn</a>, <a href="https://github.com/raphaelfalves" target="_blank" class="text-white">GitHub</a>.</p>
     </footer>
 </div>
+
+@code {
+    private Task OpenDialogAsync()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+
+        return DialogService.ShowAsync<Login>("Login", options);
+    }
+}

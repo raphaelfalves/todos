@@ -1,11 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using ToDosProject.Domain.Entities;
 using ToDosProject.Infraestructure.Context;
 
 namespace ToDosProject.ApiService.MapGroups
 {
-    public class ToDoItemEndnpoits
+    public class ToDoItemEndnpoits()
     {
+        public static async Task<string> GetUserId(AppDbContext db, IHttpContextAccessor httpContextAccessor)
+        {
+            var user = await db.User.FirstOrDefaultAsync(u => u.Email == httpContextAccessor.HttpContext!.User.Identity!.Name)
+                ?? throw new Exception("Usuário não econtrado!");
+            return user.Id;
+        }
+
         public static async Task<IResult> GetAll(AppDbContext db)
         {
             return TypedResults.Ok(await db.ToDo.ToArrayAsync());
@@ -17,8 +25,10 @@ namespace ToDosProject.ApiService.MapGroups
                     ? TypedResults.Ok(ToDo)
                     : TypedResults.NotFound();
 
-        public static async Task<IResult> Create(ToDo ToDo, AppDbContext db)
+        public static async Task<IResult> Create(ToDo ToDo, AppDbContext db, IHttpContextAccessor httpContextAccessor)
         {
+            ToDo.UserId ??= await GetUserId(db,httpContextAccessor);
+
             db.ToDo.Add(ToDo);
             await db.SaveChangesAsync();
 

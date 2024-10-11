@@ -7,6 +7,7 @@
         public const string MIGRATION = "migration";
         public const string CACHE = "cache";
         public const string SQL = "SqlServer";
-        public const string DATABASE = "todoprojectdb";
-    }
+        public const string DATABASE = "todoprojectdb"; 
+        public const int DefaultStatusCode = 200;
+	}
 }
