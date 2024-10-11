@@ -1,0 +1,83 @@
+﻿@layout AuthlessLayout
+
+@inject ApiServiceClient apiServiceClient
+@inject CookieAuthenticationStateProvider authenticationStateProvider
+@inject NavigationManager navigationManager
+@inject IDialogService DialogService
+
+<EditForm FormName="LoginForm" Model="login" OnValidSubmit="OnValidSubmitAsync">
+    <MudDialog>
+        <TitleContent>
+            <MudText Typo="Typo.h6" Align="Align.Center">
+                <MudIcon Icon="@Icons.Material.Filled.Lock" Class="mr-3" /> Entrar
+            </MudText>
+        </TitleContent>
+        <DialogContent>
+            <DataAnnotationsValidator />
+
+            <MudTextField @bind-Value="login.Email"
+                          Label="E-mail"
+                          For="@(() => login.Email)"
+                          Variant="Variant.Outlined"
+                          InputType="InputType.Email" 
+                          Margin="Margin.Dense" />
+
+            <MudTextField @bind-Value="login.Password"
+                          Label="Senha"
+                          For="@(() => login.Password)"
+                          Variant="Variant.Outlined"
+                          InputType="InputType.Password" 
+                          Margin="Margin.Dense" />
+
+            <MudSpacer />
+
+        </DialogContent>
+        <DialogActions>
+            <MudButton @onclick="OpenDialogAsync" >
+                Cadastrar-se
+            </MudButton>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" DropShadow="false" Color="Color.Primary">Entrar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code {
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; } = null!;
+
+    [SupplyParameterFromForm] private LoginDTO login { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity is { IsAuthenticated: true })
+        {
+            await authenticationStateProvider.GetAuthenticationStateAsync();
+            authenticationStateProvider.NotifyAuthenticationStateChanged();
+            navigationManager.NavigateTo("/todos");
+        }
+    }
+
+    public async Task OnValidSubmitAsync()
+    {
+        var result = await apiServiceClient.Login(login);
+
+        if (result.IsSuccess)
+        {
+            await authenticationStateProvider.GetAuthenticationStateAsync();
+            authenticationStateProvider.NotifyAuthenticationStateChanged();
+            navigationManager.NavigateTo("/todos");
+        }
+    }
+
+    private Task OpenDialogAsync()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+
+        MudDialog.Cancel();
+
+        return DialogService.ShowAsync<Register>("Register", options);
+    }
+}

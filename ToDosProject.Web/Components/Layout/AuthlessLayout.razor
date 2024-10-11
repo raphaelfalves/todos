@@ -12,11 +12,12 @@
 @* Needed for snackbars *@
 <MudSnackbarProvider />
 
+
 <ErrorBoundary>
     <ChildContent>
         @Body
     </ChildContent>
-    <ErrorContent>
+    <ErrorContent Context="error">
         <div id="blazor-error-ui dismis" data-nosnippet>
             @if (HostEnvironment.IsProduction())
             {
@@ -25,9 +26,9 @@
             else
             {
                 <span>An unhandled exception occurred.</span>
-                <p>@context.Message</p>
-                <p>@context.InnerException</p>
-                <p>@context.StackTrace</p>
+                <p>@error.Message</p>
+                <p>@error.InnerException</p>
+                <p>@error.StackTrace</p>
             }
             <a href="" class="reload">Reload</a>
             <a class="dismiss">🗙</a>
