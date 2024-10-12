@@ -11,6 +11,7 @@ using ToDosProject.Web;
 using System.Collections.Generic;
 using ToDosProject.Tests.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using IdentityModel.OidcClient;
 
 namespace ToDosProject.Tests.UnitTest.ApiService.MapGroups
 {
@@ -46,9 +47,32 @@ namespace ToDosProject.Tests.UnitTest.ApiService.MapGroups
         {
             await using var context = new MockDB().CreateDbContext();
 
-            var result = await ToDoItemEndnpoits.GetAll(context);
+            var user = await MockDB.AddUserInContextAsync(context);
+
+            Mock<IHttpContextAccessor> httpContextAccessorMock = MockAcessor.CreateAccessorAuthenticated(user);
+
+            var result = await ToDoItemEndnpoits.GetAll(context, httpContextAccessorMock.Object);
 
             Assert.IsType<Ok<ToDo[]>>(result);
+        }
+
+        [Fact]
+        public async Task GetAllReturnOnlyToDosOfAuthenticatedUser()
+        {
+            await using var context = new MockDB().CreateDbContext();
+
+            await MockDB.InitializeDbAsync(context);
+
+            var user = context.User.Find("1");
+
+            Mock<IHttpContextAccessor> httpContextAccessorMock = MockAcessor.CreateAccessorAuthenticated(user!);
+
+            var result = await ToDoItemEndnpoits.GetAll(context, httpContextAccessorMock.Object);
+
+            var okResult = Assert.IsType<Ok<ToDo[]>>(result);
+            Assert.NotNull(okResult.Value);
+            Assert.NotEmpty(okResult.Value);
+            Assert.All(okResult.Value, item => Assert.Equal(user!.Id, item.UserId));
         }
 
         [Fact]
@@ -58,7 +82,7 @@ namespace ToDosProject.Tests.UnitTest.ApiService.MapGroups
 
             var user = await MockDB.AddUserInContextAsync(context);
 
-            Mock<IHttpContextAccessor> httpContextAccessorMock = MockAcessor.CreateAcessorAuthenticated(user);
+            Mock<IHttpContextAccessor> httpContextAccessorMock = MockAcessor.CreateAccessorAuthenticated(user);
 
             var todo = new ToDo(0, "Fazer café")
             {
@@ -107,7 +131,7 @@ namespace ToDosProject.Tests.UnitTest.ApiService.MapGroups
 
             var user = await MockDB.AddUserInContextAsync(context);
 
-            var httpContextAccessorMock = MockAcessor.CreateAcessorAuthenticated(user);
+            var httpContextAccessorMock = MockAcessor.CreateAccessorAuthenticated(user);
 
             //Act
             var response = await ToDoItemEndnpoits.GetUserId(context, httpContextAccessorMock.Object);

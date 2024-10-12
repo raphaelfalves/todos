@@ -40,5 +40,35 @@ namespace ToDosProject.Tests.Helpers
             await context.SaveChangesAsync();
             return user;
         }
+
+        public static async Task InitializeDbAsync(AppDbContext context)
+        {
+            User[] users = [new User()
+            {
+                Id = "1",
+                Email = "userfound@todo.com"
+            },new User()
+            {
+                Id = "2",
+                Email = "usernotfound@todo.com"
+            }];
+
+            context.User.AddRange(users);
+
+            ToDo[] todoItems = 
+            [
+                new ToDo(0, "Fazer café")
+                {
+                    User = users[0],
+                },
+                new ToDo(0, "Fazer chá")
+                {
+                    User = users[1],
+                }
+            ];
+
+            context.ToDo.AddRange(todoItems);
+            await context.SaveChangesAsync();
+        }
     }
 }
