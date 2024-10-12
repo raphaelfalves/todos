@@ -1,7 +1,16 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Moq;
+using System.Security.Claims;
 using ToDosProject.ApiService.MapGroups;
 using ToDosProject.Domain.Entities;
-using ToDosProject.Tests.UnitTest.Helpers;
+using ToDosProject.Domain.Exceptions;
+using ToDosProject.Web.Services;
+using ToDosProject.Web;
+using System.Collections.Generic;
+using ToDosProject.Tests.Helpers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ToDosProject.Tests.UnitTest.ApiService.MapGroups
 {
@@ -47,11 +56,64 @@ namespace ToDosProject.Tests.UnitTest.ApiService.MapGroups
         {
             await using var context = new MockDB().CreateDbContext();
 
-            var todo = new ToDo(0, "Fazer café");
+            var user = await MockDB.AddUserInContextAsync(context);
 
-            var result = await ToDoItemEndnpoits.Create(todo, context);
+            Mock<IHttpContextAccessor> httpContextAccessorMock = MockAcessor.CreateAcessorAuthenticated(user);
+
+            var todo = new ToDo(0, "Fazer café")
+            {
+                UserId = user.Id
+            };
+
+            var result = await ToDoItemEndnpoits.Create(todo, context, httpContextAccessorMock.Object);
 
             Assert.IsType<Created<ToDo>>(result);
+        }
+
+        [Fact]
+        public async Task CreateToDoReturnsUnauthorized()
+        {
+            await using var context = new MockDB().CreateDbContext();
+
+            var httpContextAccessorMock = MockAcessor.CreateAcessorUnauthenticated();
+
+            var todo = new ToDo(0, "Fazer café");
+
+            var response = await ToDoItemEndnpoits.Create(todo, context, httpContextAccessorMock.Object);
+
+            Assert.IsType<UnauthorizedHttpResult>(response);
+        }
+
+        [Fact]
+        public async Task GetUserIdThrowUserNotFoundExpceptionWhenUserNotFound()
+        {
+            //Arrage
+            await using var context = new MockDB().CreateDbContext();
+
+            var httpContextAccessorMock = MockAcessor.CreateAcessorUnauthenticated();
+
+            //Act
+            var task = ToDoItemEndnpoits.GetUserId(context, httpContextAccessorMock.Object);
+
+            //Assert
+            await Assert.ThrowsAsync<UserNotFoundExpception>(() => task);
+        }
+
+        [Fact]
+        public async Task GetUserIdReturnsUserId()
+        {
+            //Arrage
+            await using var context = new MockDB().CreateDbContext();
+
+            var user = await MockDB.AddUserInContextAsync(context);
+
+            var httpContextAccessorMock = MockAcessor.CreateAcessorAuthenticated(user);
+
+            //Act
+            var response = await ToDoItemEndnpoits.GetUserId(context, httpContextAccessorMock.Object);
+
+            //Assert
+            Assert.Equal(user.Id, response);
         }
 
         [Fact]
