@@ -14,7 +14,7 @@ namespace ToDosProject.Tests.Helpers
     public class MockAcessor
     {
 
-        public static Mock<IHttpContextAccessor> CreateAcessorAuthenticated(User user)
+        public static Mock<IHttpContextAccessor> CreateAccessorAuthenticated(User user)
         {
             var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
             var httpContext = new DefaultHttpContext();

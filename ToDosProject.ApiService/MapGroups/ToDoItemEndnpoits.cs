@@ -16,9 +16,10 @@ namespace ToDosProject.ApiService.MapGroups
             return user.Id;
         }
 
-        public static async Task<IResult> GetAll(AppDbContext db)
+        public static async Task<IResult> GetAll(AppDbContext db, IHttpContextAccessor httpContextAccessor)
         {
-            return TypedResults.Ok(await db.ToDo.ToArrayAsync());
+            string userid = await GetUserId(db, httpContextAccessor);
+            return TypedResults.Ok(await db.ToDo.Where(u => u.UserId == userid).ToArrayAsync());
         }
 
         public static async Task<IResult> GetById(int id, AppDbContext db)
