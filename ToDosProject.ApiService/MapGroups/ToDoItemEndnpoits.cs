@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using ToDosProject.Domain.Entities;
+using ToDosProject.Domain.Exceptions;
 using ToDosProject.Infraestructure.Context;
 
 namespace ToDosProject.ApiService.MapGroups
@@ -10,7 +11,8 @@ namespace ToDosProject.ApiService.MapGroups
         public static async Task<string> GetUserId(AppDbContext db, IHttpContextAccessor httpContextAccessor)
         {
             var user = await db.User.FirstOrDefaultAsync(u => u.Email == httpContextAccessor.HttpContext!.User.Identity!.Name)
-                ?? throw new Exception("Usuário não econtrado!");
+                ?? throw new UserNotFoundExpception("Usuário não econtrado!");
+
             return user.Id;
         }
 
@@ -27,12 +29,19 @@ namespace ToDosProject.ApiService.MapGroups
 
         public static async Task<IResult> Create(ToDo ToDo, AppDbContext db, IHttpContextAccessor httpContextAccessor)
         {
-            ToDo.UserId ??= await GetUserId(db,httpContextAccessor);
+            try
+            {
+                ToDo.UserId ??= await GetUserId(db, httpContextAccessor);
 
-            db.ToDo.Add(ToDo);
-            await db.SaveChangesAsync();
+                db.ToDo.Add(ToDo);
+                await db.SaveChangesAsync();
 
-            return TypedResults.Created($"/ToDoitems/{ToDo.Id}", ToDo);
+                return TypedResults.Created($"/ToDoitems/{ToDo.Id}", ToDo);
+            }
+            catch (UserNotFoundExpception)
+            {
+                return TypedResults.Unauthorized();
+            }
         }
 
         public static async Task<IResult> Update(int id, ToDo inputToDo, AppDbContext db)
