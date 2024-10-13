@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ToDosProject.Domain.Entities;
 using ToDosProject.Domain.Exceptions;
 using ToDosProject.Infraestructure.Context;

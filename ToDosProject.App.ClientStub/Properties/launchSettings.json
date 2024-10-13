@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ToDosProject.App.ClientStub": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

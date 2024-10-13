@@ -1,6 +1,5 @@
-﻿@using System.Text.Json
-@inherits LayoutComponentBase
-@inject IHostEnvironment HostEnvironment
+﻿@inherits LayoutComponentBase
+@inject NavigationManager Navigation
 
 @* Required *@
 <MudThemeProvider />
@@ -20,7 +19,7 @@
             </ChildContent>
             <ErrorContent Context="error">
                 <div id="blazor-error-ui dismis" data-nosnippet>
-                    @if (HostEnvironment.IsProduction())
+                    @if (IsProduction())
                     {
                         <span>An error has occurred.</span>
                     }
@@ -41,3 +40,12 @@
         <RedirectToLogin />
     </NotAuthorized>
 </AuthorizeView>
+
+@code {
+    private bool IsProduction()
+    {
+        // Verifica se o ambiente é de produção baseado na URL
+        var uri = Navigation.BaseUri;
+        return uri.Contains(".com");
+    }
+}

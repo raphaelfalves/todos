@@ -1,8 +1,9 @@
+using System.Net.Http.Json;
 using System.Text;
 using ToDosProject.Domain.DTOs;
 using ToDosProject.Domain.Entities;
 
-namespace ToDosProject.Web;
+namespace ToDosProject.Shared.Services;
 
 public class ApiServiceClient(HttpClient httpClient)
 {
@@ -57,11 +58,21 @@ public class ApiServiceClient(HttpClient httpClient)
     }
     public async Task<Response<string>> Login(LoginDTO loginRequest)
     {
-        var result = await httpClient.PostAsJsonAsync("/login?useCookies=true", loginRequest);
-
-        return result.IsSuccessStatusCode
+        try
+        {
+            var result = await httpClient.PostAsJsonAsync("/login?useCookies=true", loginRequest);
+            return result.IsSuccessStatusCode
             ? new(200, "Login realizado com sucesso!")
             : new(400, "Erro ao fazer login");
+        }
+        catch (Exception ex)
+        {
+
+            Console.WriteLine(ex);
+            throw;
+        }
+
+        
     }
 
     public async Task<Response<string>> Register(RegisterDTO register)

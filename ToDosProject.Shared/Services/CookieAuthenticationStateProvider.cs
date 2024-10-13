@@ -3,7 +3,7 @@ using System.Security.Claims;
 using ToDosProject.Domain.Entities;
 using ToDosProject.Domain.Interfaces;
 
-namespace ToDosProject.Web.Services
+namespace ToDosProject.Shared.Services
 {
     public class CookieAuthenticationStateProvider(ApiServiceClient apiServiceClient) : AuthenticationStateProvider, ICookieAuthenticationStateProvider
     {

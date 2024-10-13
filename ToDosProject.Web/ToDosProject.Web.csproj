@@ -9,11 +9,11 @@
   <ItemGroup>
     <ProjectReference Include="..\ToDosProject.Domain\ToDosProject.Domain.csproj" />
     <ProjectReference Include="..\ToDosProject.ServiceDefaults\ToDosProject.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\ToDosProject.Shared\ToDosProject.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.8" />
-    <PackageReference Include="MudBlazor" Version="7.8.0" />
+    <Folder Include="Components\Pages\" />
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using ToDosProject.Domain.Entities;
-using ToDosProject.Web.Services;
+using ToDosProject.Shared.Services;
 
 namespace ToDosProject.Tests.Helpers
 {

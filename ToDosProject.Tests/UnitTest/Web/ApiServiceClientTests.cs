@@ -1,7 +1,7 @@
 ﻿using RichardSzalay.MockHttp;
 using System.Text.Json;
 using ToDosProject.Domain.Entities;
-using ToDosProject.Web;
+using ToDosProject.Shared.Services;
 
 namespace ToDosProject.Tests.UnitTest.Web
 {

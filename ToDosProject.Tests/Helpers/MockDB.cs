@@ -55,7 +55,7 @@ namespace ToDosProject.Tests.Helpers
 
             context.User.AddRange(users);
 
-            ToDo[] todoItems = 
+            ToDo[] todoItems =
             [
                 new ToDo(0, "Fazer café")
                 {

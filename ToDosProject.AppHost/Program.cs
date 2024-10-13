@@ -7,6 +7,9 @@ var sqldb = builder.AddConnectionString(AppConfiguration.SQL, "ConnectionStrings
 var apiService = builder.AddProject<Projects.ToDosProject_ApiService>(AppConfiguration.API)
     .WithReference(sqldb);
 
+builder.AddMobileProject("mauiclient", "../ToDosProject.App")
+    .WithReference(apiService);
+
 builder.AddProject<Projects.ToDosProject_Web>(AppConfiguration.WEB)
     .WithExternalHttpEndpoints()
     .WithReference(apiService);

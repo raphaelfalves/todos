@@ -1,17 +1,10 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Moq;
-using System.Security.Claims;
 using ToDosProject.ApiService.MapGroups;
 using ToDosProject.Domain.Entities;
 using ToDosProject.Domain.Exceptions;
-using ToDosProject.Web.Services;
-using ToDosProject.Web;
-using System.Collections.Generic;
 using ToDosProject.Tests.Helpers;
-using Microsoft.AspNetCore.Mvc;
-using IdentityModel.OidcClient;
 
 namespace ToDosProject.Tests.UnitTest.ApiService.MapGroups
 {

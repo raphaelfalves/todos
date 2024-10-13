@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ToDosProject.ApiService.Extensions;
 using ToDosProject.ApiService.MapGroups;
