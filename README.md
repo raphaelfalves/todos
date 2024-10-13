@@ -30,7 +30,6 @@ Este repositório contém a aplicação ["Tarefas a Fazer"](https://webfrontend.
 ├── TodDosProject.AppHost            # Orquestrador do aplicativo
 ├── TodDosProject.Domain             # Biblioteca de classe da regra de negócio
 ├── TodDosProject.Infraestructure    # Biblioteca de classe do acesso a dados
-├── TodDosProject.MigrationService   # Conteiner personalizado para adicionar as migrations ao banco
 ├── TodDosProject.ServiceDefaults    # Conjunto de métodos para adicionar as funcionalidades do Aspire
 ├── TodDosProject.Test               # Projeto de Testes unitários e de integração e funcionalidade
 ├── TodDosProject.Web                # Projeto do Web
